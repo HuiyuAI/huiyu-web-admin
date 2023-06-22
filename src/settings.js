@@ -1,31 +1,37 @@
 module.exports = {
-	/**
-	 * @type {string}
-	 * @description page title
-	 */
-	title: 'My Vue Admin Template',
+  /**
+   * @type {string}
+   * @description page title
+   */
+  title: 'Huiyu AI Admin',
 
-	/**
-	 * @type {string}
-	 * @description logo URL
-	 */
-	logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+  /**
+   * @type {string}
+   * @description base server url
+   */
+  baseServerUrl: 'http://localhost:8010',
 
-	/**
-	 * @type {boolean} true | false
-	 * @description Whether fix the header
-	 */
-	fixedHeader: true,
+  /**
+   * @type {string}
+   * @description logo URL
+   */
+  logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
 
-	/**
-	 * @type {boolean} true | false
-	 * @description Whether show the logo in sidebar
-	 */
-	sidebarLogo: true,
+  /**
+   * @type {boolean} true | false
+   * @description Whether fix the header
+   */
+  fixedHeader: true,
 
-	/**
-	 * @type {Array}
-	 * @description 默认展开的父级菜单
-	 */
-	defaultOpeneds: ['/example']
+  /**
+   * @type {boolean} true | false
+   * @description Whether show the logo in sidebar
+   */
+  sidebarLogo: true,
+
+  /**
+   * @type {Array}
+   * @description 默认展开的父级菜单
+   */
+  defaultOpeneds: ['/example']
 }
