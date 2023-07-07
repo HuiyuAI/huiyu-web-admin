@@ -40,7 +40,7 @@ const routes = [
         path: 'model',
         name: 'Model',
         component: () => import('@/views/app/model'),
-        meta: {title: '模型管理', icon: 'el-icon-user-solid'}
+        meta: {title: '模型管理', icon: 'model-manager'}
       },
       {
         path: 'user',
