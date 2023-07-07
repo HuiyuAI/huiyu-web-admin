@@ -9,7 +9,7 @@ module.exports = {
    * @type {string}
    * @description base server url
    */
-  baseServerUrl: 'http://localhost:8010',
+  baseServerUrl: 'http://localhost:8000',
 
   /**
    * @type {string}

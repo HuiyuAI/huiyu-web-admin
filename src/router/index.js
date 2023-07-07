@@ -29,6 +29,27 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/system',
+    name: 'System',
+    redirect: '/system/client',
+    component: Layout,
+    meta: {title: '系统管理', icon: 'el-icon-s-tools'},
+    children: [
+      {
+        path: 'client',
+        name: 'Client',
+        component: () => import('@/views/system/client'),
+        meta: {title: '客户端管理', icon: 'el-icon-s-platform'}
+      },
+      {
+        path: 'permission',
+        name: 'Permission',
+        component: () => import('@/views/system/permission'),
+        meta: {title: '权限管理', icon: 'el-icon-s-promotion'}
+      },
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   {path: '*', redirect: '/404', hidden: true}
@@ -41,11 +62,11 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-	if (to.path !== '/login') {
-		if (!localStorage['access_token']) return next("/login")
-	}
-	document.title = getPageTitle(to.meta.title)
-	next()
+  if (to.path !== '/login') {
+    if (!localStorage['access_token']) return next("/login")
+  }
+  document.title = getPageTitle(to.meta.title)
+  next()
 })
 
 export default router
