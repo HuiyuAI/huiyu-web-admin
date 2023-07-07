@@ -9,7 +9,7 @@ module.exports = {
    * @type {string}
    * @description base server url
    */
-  baseServerUrl: 'http://localhost:8000',
+  baseServerUrl: 'https://api.naccl.top/huiyu',
 
   /**
    * @type {string}

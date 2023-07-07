@@ -161,7 +161,6 @@ export default {
     },
     search() {
       this.pageNum = 1
-      this.pageSize = 10
       this.getData()
     },
     //监听 pageSize 改变事件

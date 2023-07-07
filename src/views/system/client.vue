@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form inline>
+    <el-form inline @submit.native.prevent>
       <el-form-item label="客户端ID">
         <el-input placeholder="请输入客户端ID" v-model="queryInfo.clientId" :clearable="true"
                   @keyup.native.enter="search" @clear="search" size="small" style="min-width: 200px">
@@ -164,7 +164,6 @@ export default {
     },
     search() {
       this.pageNum = 1
-      this.pageSize = 10
       this.getData()
     },
     //监听 pageSize 改变事件
