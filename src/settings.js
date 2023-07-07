@@ -3,7 +3,7 @@ module.exports = {
    * @type {string}
    * @description page title
    */
-  title: 'Huiyu AI Admin',
+  title: 'Huiyu Admin',
 
   /**
    * @type {string}
@@ -33,5 +33,5 @@ module.exports = {
    * @type {Array}
    * @description 默认展开的父级菜单
    */
-  defaultOpeneds: ['/example']
+  defaultOpeneds: ['/app', '/system']
 }

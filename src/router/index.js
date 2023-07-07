@@ -30,6 +30,27 @@ const routes = [
     ]
   },
   {
+    path: '/app',
+    name: 'App',
+    redirect: '/app/model',
+    component: Layout,
+    meta: {title: '应用管理', icon: 'el-icon-menu'},
+    children: [
+      {
+        path: 'model',
+        name: 'Model',
+        component: () => import('@/views/app/model'),
+        meta: {title: '模型管理', icon: 'el-icon-user-solid'}
+      },
+      {
+        path: 'user',
+        name: 'User',
+        component: () => import('@/views/app/user'),
+        meta: {title: '用户管理', icon: 'el-icon-user-solid'}
+      },
+    ]
+  },
+  {
     path: '/system',
     name: 'System',
     redirect: '/system/client',
