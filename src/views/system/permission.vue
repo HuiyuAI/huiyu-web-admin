@@ -12,6 +12,11 @@
                   @keyup.native.enter="search" @clear="search" size="small" style="min-width: 200px">
         </el-input>
       </el-form-item>
+      <el-form-item label="URL规则">
+        <el-input placeholder="请输入URL规则" v-model="queryInfo.urlPerm" :clearable="true"
+                  @keyup.native.enter="search" @clear="search" size="small" style="min-width: 200px">
+        </el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" icon="el-icon-search" @click="search">搜索</el-button>
       </el-form-item>
@@ -24,7 +29,7 @@
     </el-form>
 
     <el-table :data="rulesList">
-      <el-table-column label="排序" prop="orderId" width="50"></el-table-column>
+      <el-table-column label="排序" prop="orderId" width="80"></el-table-column>
       <el-table-column label="权限名称" prop="name" width="300"></el-table-column>
       <el-table-column label="URL规则" prop="urlPerm"></el-table-column>
       <el-table-column label="角色" prop="role">
@@ -111,6 +116,7 @@ export default {
       queryInfo: {
         name: null,
         role: null,
+        urlPerm: null,
       },
       pageNum: 1,
       pageSize: 10,
