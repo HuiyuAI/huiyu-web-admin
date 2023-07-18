@@ -69,7 +69,7 @@
                    layout="total, sizes, prev, pager, next, jumper" background>
     </el-pagination>
 
-    <el-dialog title="新增模型" width="50%" :visible.sync="addDialogVisible" @close="resetAddForm">
+    <el-dialog title="新增模型" width="50%" :visible.sync="addDialogVisible">
       <!--内容主体-->
       <el-form label-width="130px" @submit.native.prevent :model="addForm" :rules="formRules" ref="addFormRef">
         <el-form-item label="排序" prop="priority">
@@ -323,6 +323,7 @@ export default {
             this.addDialogVisible = false
             this.msgSuccess(res.msg)
             this.getData()
+            this.resetAddForm()
           })
         }
       })
