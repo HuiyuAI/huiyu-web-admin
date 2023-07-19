@@ -4,7 +4,7 @@
       <el-form-item label="角色">
         <el-select placeholder="请选择角色" v-model="queryInfo.role" :clearable="true"
                    @change="search" size="small" style="width: 150px">
-          <el-option :label="item.label" :value="item.roleName" v-for="(item,index) in roleList" :key="index"></el-option>
+          <el-option :label="item.label" :value="item.code" v-for="(item,index) in roleList" :key="index"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="权限名称">
@@ -66,7 +66,7 @@
         </el-form-item>
         <el-form-item label="角色" prop="role">
           <el-checkbox-group v-model="addForm.role">
-            <el-checkbox :label="role.roleName" v-for="(role,index) in roleList" :key="index">{{ role.label }}</el-checkbox>
+            <el-checkbox :label="role.code" v-for="(role,index) in roleList" :key="index">{{ role.label }}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
       </el-form>
@@ -91,7 +91,7 @@
         </el-form-item>
         <el-form-item label="角色" prop="role">
           <el-checkbox-group v-model="editForm.role">
-            <el-checkbox :label="role.roleName" v-for="(role,index) in roleList" :key="index">{{ role.label }}</el-checkbox>
+            <el-checkbox :label="role.code" v-for="(role,index) in roleList" :key="index">{{ role.label }}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
       </el-form>
@@ -119,7 +119,7 @@ export default {
         urlPerm: null,
       },
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 50,
       total: 0,
       rulesList: [],
       addDialogVisible: false,
@@ -156,7 +156,7 @@ export default {
     },
     convertRoleList(roleStr) {
       return roleStr.split(',').map(role => {
-        return this.roleList.find(item => item.roleName === role).label
+        return this.roleList.find(item => item.code === role).label
       }).toString()
     },
     search() {

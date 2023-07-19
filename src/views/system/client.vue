@@ -118,7 +118,7 @@ export default {
         clientId: null,
       },
       pageNum: 1,
-      pageSize: 10,
+      pageSize: 50,
       total: 0,
       clientList: [],
       addDialogVisible: false,
