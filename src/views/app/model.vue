@@ -49,10 +49,10 @@
                      @change="modelChanged(scope.row,'enabled')"></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" width="150">
+      <el-table-column label="创建时间" width="160">
         <template v-slot="scope">{{ scope.row.createTime | dateFormat }}</template>
       </el-table-column>
-      <el-table-column label="更新时间" width="150">
+      <el-table-column label="更新时间" width="160">
         <template v-slot="scope">{{ scope.row.updateTime | dateFormat }}</template>
       </el-table-column>
       <el-table-column label="操作" width="200">
