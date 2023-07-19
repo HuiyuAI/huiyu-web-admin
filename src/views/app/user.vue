@@ -111,7 +111,7 @@
         </el-row>
         <el-form-item label="角色" prop="role">
           <el-radio-group v-model="editForm.role">
-            <el-radio :label="role.code" v-for="(role,index) in roleList" :key="index" :disabled="role.code==='ROLE_USER'">{{ role.label }}</el-radio>
+            <el-radio :label="role.code" v-for="(role,index) in roleList" :key="index">{{ role.label }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-row>
