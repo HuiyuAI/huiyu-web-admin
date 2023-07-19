@@ -41,7 +41,7 @@
                    layout="total, sizes, prev, pager, next, jumper" background>
     </el-pagination>
 
-    <el-dialog title="新增客户端" width="50%" :visible.sync="addDialogVisible" @close="resetAddForm">
+    <el-dialog title="新增客户端" width="50%" :visible.sync="addDialogVisible" @close="resetAddForm" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="150px" @submit.native.prevent :model="addForm" :rules="formRules" ref="addFormRef">
         <el-form-item label="客户端ID" prop="clientId">
@@ -73,7 +73,7 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="编辑客户端" width="50%" :visible.sync="editDialogVisible" @close="resetEditForm">
+    <el-dialog title="编辑客户端" width="50%" :visible.sync="editDialogVisible" @close="resetEditForm" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="150px" @submit.native.prevent :model="editForm" :rules="formRules" ref="editFormRef">
         <el-form-item label="客户端ID" prop="clientId">

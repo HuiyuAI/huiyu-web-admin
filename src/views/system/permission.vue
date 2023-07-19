@@ -52,7 +52,7 @@
                    layout="total, sizes, prev, pager, next, jumper" background>
     </el-pagination>
 
-    <el-dialog title="新增规则" width="40%" :visible.sync="addDialogVisible" @close="resetAddForm">
+    <el-dialog title="新增规则" width="40%" :visible.sync="addDialogVisible" @close="resetAddForm" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="100px" @submit.native.prevent :model="addForm" :rules="formRules" ref="addFormRef">
         <el-form-item label="排序" prop="orderId">
@@ -77,7 +77,7 @@
       </span>
     </el-dialog>
 
-    <el-dialog title="编辑规则" width="40%" :visible.sync="editDialogVisible" @close="resetEditForm">
+    <el-dialog title="编辑规则" width="40%" :visible.sync="editDialogVisible" @close="resetEditForm" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="100px" @submit.native.prevent :model="editForm" :rules="formRules" ref="editFormRef">
         <el-form-item label="排序" prop="orderId">
