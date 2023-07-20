@@ -48,6 +48,12 @@ const routes = [
         component: () => import('@/views/app/user'),
         meta: {title: '用户管理', icon: 'el-icon-user-solid'}
       },
+      {
+        path: 'task',
+        name: 'Task',
+        component: () => import('@/views/app/task'),
+        meta: {title: '任务管理', icon: 'task'}
+      },
     ]
   },
   {

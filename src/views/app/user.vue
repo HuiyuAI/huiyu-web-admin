@@ -13,7 +13,10 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" size="small" icon="el-icon-plus" @click="showAddDialog">添加用户</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="search">搜索</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="success" size="small" icon="el-icon-plus" @click="showAddDialog">添加用户</el-button>
       </el-form-item>
     </el-form>
 
