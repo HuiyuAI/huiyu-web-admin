@@ -1,10 +1,38 @@
 <template>
   <div class="task-container">
     <el-form inline @submit.native.prevent>
+      <el-form-item label="任务ID">
+        <el-input placeholder="请输入任务ID" v-model="queryInfo.id" type="number" :clearable="true"
+                  @keyup.native.enter="search" @clear="search" size="small" style="min-width: 220px">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="请求UUID">
+        <el-input placeholder="请输入请求UUID" v-model="queryInfo.requestUuid" type="text" :clearable="true"
+                  @keyup.native.enter="search" @clear="search" size="small" style="min-width: 320px">
+        </el-input>
+      </el-form-item>
       <el-form-item label="用户ID">
         <el-input placeholder="请输入用户ID" v-model="queryInfo.userId" type="number" :clearable="true"
-                  @keyup.native.enter="search" @clear="search" size="small" style="min-width: 150px">
+                  @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
         </el-input>
+      </el-form-item>
+
+      <el-form-item label="任务类型">
+        <el-select placeholder="请选择任务类型" v-model="queryInfo.type" :clearable="true"
+                   @change="search" size="small" style="width: 150px">
+          <el-option :label="item.desc" :value="item.key" v-for="(item,index) in taskTypeEnumList" :key="index"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="任务状态">
+        <el-select placeholder="请选择任务状态" v-model="queryInfo.status" :clearable="true"
+                   @change="search" size="small" style="width: 150px">
+          <el-option :label="item.desc" :value="item.key" v-for="(item,index) in taskStatusEnumList" :key="index"></el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label="创建时间">
+        <DateTimeRangePicker :date="queryInfoDate" :setDate="setDate"/>
       </el-form-item>
 
       <el-form-item>
@@ -46,30 +74,55 @@
 </template>
 
 <script>
+import DateTimeRangePicker from "@/components/DateTimeRangePicker";
 import {getTaskListByQuery} from "@/api/task";
+import {getTaskStatusEnum, getTaskTypeEnum} from "@/api/enum";
 
 export default {
   name: "Task",
+  components: {DateTimeRangePicker},
   data() {
     return {
       queryInfo: {
+        id: null,
+        requestUuid: null,
         userId: null,
+        type: null,
+        status: null,
+        createTimeStart: null,
+        createTimeEnd: null,
       },
+      queryInfoDate: [],
       pageNum: 1,
       pageSize: 10,
       total: 0,
       taskList: [],
+      taskTypeEnumList: [],
+      taskStatusEnumList: [],
     }
   },
   created() {
     this.$route.query.userId && (this.queryInfo.userId = this.$route.query.userId)
     this.getData()
+    this.getEnum()
   },
   methods: {
     getData() {
+      if (this.queryInfoDate && this.queryInfoDate.length === 2) {
+        this.queryInfo.createTimeStart = this.queryInfoDate[0]
+        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
+      }
       getTaskListByQuery(this.queryInfo, this.pageNum, this.pageSize).then(res => {
         this.taskList = res.data.records
         this.total = res.data.total
+      })
+    },
+    getEnum() {
+      getTaskTypeEnum().then(res => {
+        this.taskTypeEnumList = res.data
+      })
+      getTaskStatusEnum().then(res => {
+        this.taskStatusEnumList = res.data
       })
     },
     search() {
@@ -86,6 +139,9 @@ export default {
     handleCurrentChange(newPage) {
       this.pageNum = newPage
       this.getData()
+    },
+    setDate(value) {
+      this.queryInfoDate = value
     },
   }
 }
