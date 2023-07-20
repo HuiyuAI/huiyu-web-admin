@@ -16,9 +16,6 @@
       <el-table-column type="expand">
         <template v-slot="props">
           <el-form label-position="left" class="table-expand">
-            <el-form-item label="请求UUID">
-              <span>{{ props.row.requestUuid }}</span>
-            </el-form-item>
             <el-form-item label="SD请求体">
               <span>{{ '\n' + JSON.stringify(JSON.parse(props.row.body), null, '\t') }}</span>
             </el-form-item>
@@ -26,11 +23,12 @@
         </template>
       </el-table-column>
       <el-table-column label="任务ID" prop="id"></el-table-column>
+      <el-table-column label="请求UUID" prop="requestUuid"></el-table-column>
       <el-table-column label="用户ID" prop="userId" width="80"></el-table-column>
       <el-table-column label="任务类型" prop="type"></el-table-column>
       <el-table-column label="任务状态" prop="status"></el-table-column>
       <el-table-column label="消耗积分" prop="point" width="80"></el-table-column>
-      <el-table-column label="执行源" prop="execSource" width="80"></el-table-column>
+      <el-table-column label="执行源" prop="execSource" width="100"></el-table-column>
       <el-table-column label="创建时间" width="160">
         <template v-slot="scope">{{ scope.row.createTime | dateFormat }}</template>
       </el-table-column>
@@ -103,7 +101,7 @@ export default {
     margin-bottom: 0;
   }
 
-  .el-table .table-expand .el-form-item:nth-of-type(2) {
+  .el-table .table-expand .el-form-item {
     label {
       line-height: 1.5;
     }

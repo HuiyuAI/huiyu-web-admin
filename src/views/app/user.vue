@@ -16,7 +16,7 @@
         <el-button type="primary" size="small" icon="el-icon-search" @click="search">搜索</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="success" size="small" icon="el-icon-plus" @click="showAddDialog">添加用户</el-button>
+        <el-button type="success" size="small" icon="el-icon-plus" @click="showAddDialog">添加</el-button>
       </el-form-item>
     </el-form>
 
@@ -70,7 +70,7 @@
                    layout="total, sizes, prev, pager, next, jumper" background>
     </el-pagination>
 
-    <el-dialog title="修改用户" width="50%" :visible.sync="editDialogVisible" :close-on-click-modal="false" :close-on-press-escape="false">
+    <el-dialog title="编辑用户" width="50%" :visible.sync="editDialogVisible" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="80px" @submit.native.prevent>
         <el-row>
@@ -143,7 +143,7 @@
 			</span>
     </el-dialog>
 
-    <el-dialog title="添加用户" width="50%" :visible.sync="addDialogVisible" :close-on-click-modal="false" :close-on-press-escape="false">
+    <el-dialog title="新增用户" width="50%" :visible.sync="addDialogVisible" :close-on-click-modal="false" :close-on-press-escape="false">
       <!--内容主体-->
       <el-form label-width="80px" @submit.native.prevent :model="addForm" :rules="addFormRules" ref="addFormRef">
         <el-row>
