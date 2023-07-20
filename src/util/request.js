@@ -2,6 +2,7 @@ import axios from 'axios'
 import {Message} from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import jsonBigint from 'json-bigint'
 import router from '@/router'
 import {refreshToken} from "@/api/login";
 import {isRefreshTokenExpires, isTimeToRefreshToken, parseJwtPayload2Obj} from "@/util/jwtUtils";
@@ -116,5 +117,15 @@ request.interceptors.response.use(response => {
       return Promise.reject(error)
     }
 )
+
+// 处理后端返回的超长数字
+request.defaults.transformResponse = [
+  function (data) {
+    const json = jsonBigint({
+      storeAsString: true
+    })
+    return json.parse(data)
+  }
+]
 
 export default request
