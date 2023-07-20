@@ -53,8 +53,12 @@
       <el-table-column label="任务ID" prop="id"></el-table-column>
       <el-table-column label="请求UUID" prop="requestUuid"></el-table-column>
       <el-table-column label="用户ID" prop="userId" width="80"></el-table-column>
-      <el-table-column label="任务类型" prop="type"></el-table-column>
-      <el-table-column label="任务状态" prop="status"></el-table-column>
+      <el-table-column label="任务类型">
+        <template v-slot="scope">{{ getTaskTypeDesc(scope.row.type) }}</template>
+      </el-table-column>
+      <el-table-column label="任务状态">
+        <template v-slot="scope">{{ getTaskStatusDesc(scope.row.status) }}</template>
+      </el-table-column>
       <el-table-column label="消耗积分" prop="point" width="80"></el-table-column>
       <el-table-column label="执行源" prop="execSource" width="100"></el-table-column>
       <el-table-column label="创建时间" width="160">
@@ -106,6 +110,18 @@ export default {
     this.getData()
     this.getEnum()
   },
+  computed: {
+    getTaskTypeDesc() {
+      return (type) => {
+        return this.taskTypeEnumList.find(item => item.key === type).desc
+      }
+    },
+    getTaskStatusDesc() {
+      return (status) => {
+        return this.taskStatusEnumList.find(item => item.key === status).desc
+      }
+    },
+  },
   methods: {
     getData() {
       if (this.queryInfoDate && this.queryInfoDate.length === 2) {
@@ -127,7 +143,6 @@ export default {
     },
     search() {
       this.pageNum = 1
-      this.pageSize = 10
       this.getData()
     },
     //监听 pageSize 改变事件
