@@ -16,21 +16,18 @@
                   @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
         </el-input>
       </el-form-item>
-
       <el-form-item label="任务类型">
         <el-select placeholder="请选择任务类型" v-model="queryInfo.type" :clearable="true"
                    @change="search" size="small" style="width: 150px">
           <el-option :label="item.desc" :value="item.key" v-for="(item,index) in taskTypeEnumList" :key="index"></el-option>
         </el-select>
       </el-form-item>
-
       <el-form-item label="任务状态">
         <el-select placeholder="请选择任务状态" v-model="queryInfo.status" :clearable="true"
                    @change="search" size="small" style="width: 150px">
           <el-option :label="item.desc" :value="item.key" v-for="(item,index) in taskStatusEnumList" :key="index"></el-option>
         </el-select>
       </el-form-item>
-
       <el-form-item label="创建时间">
         <DateTimeRangePicker :date="queryInfoDate" :setDate="setDate"/>
       </el-form-item>

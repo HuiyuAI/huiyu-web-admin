@@ -57,6 +57,27 @@ const routes = [
     ]
   },
   {
+    path: '/log',
+    name: 'Log',
+    redirect: '/log/request',
+    component: Layout,
+    meta: {title: '日志管理', icon: 'el-icon-document'},
+    children: [
+      {
+        path: 'request',
+        name: 'Request',
+        component: () => import('@/views/log/request'),
+        meta: {title: '请求日志', icon: 'el-icon-data-line'}
+      },
+      {
+        path: 'limit',
+        name: 'Limit',
+        component: () => import('@/views/log/limit'),
+        meta: {title: '请求限制', icon: 'el-icon-document-delete'}
+      },
+    ]
+  },
+  {
     path: '/system',
     name: 'System',
     redirect: '/system/client',
