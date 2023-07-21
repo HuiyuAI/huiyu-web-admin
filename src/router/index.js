@@ -70,9 +70,9 @@ const routes = [
         meta: {title: '请求日志', icon: 'el-icon-data-line'}
       },
       {
-        path: 'limit',
-        name: 'Limit',
-        component: () => import('@/views/log/limit'),
+        path: 'requestLimit',
+        name: 'RequestLimit',
+        component: () => import('@/views/log/requestLimit'),
         meta: {title: '请求限制', icon: 'el-icon-document-delete'}
       },
     ]
