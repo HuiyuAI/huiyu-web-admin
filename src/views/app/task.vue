@@ -103,6 +103,7 @@ export default {
     }
   },
   created() {
+    this.$route.query.taskId && (this.queryInfo.id = this.$route.query.taskId)
     this.$route.query.userId && (this.queryInfo.userId = this.$route.query.userId)
     this.getData()
     this.getEnum()

@@ -54,6 +54,12 @@ const routes = [
         component: () => import('@/views/app/task'),
         meta: {title: '任务管理', icon: 'task'}
       },
+      {
+        path: 'pointRecord',
+        name: 'PointRecord',
+        component: () => import('@/views/app/pointRecord'),
+        meta: {title: '积分流水', icon: 'point'}
+      },
     ]
   },
   {

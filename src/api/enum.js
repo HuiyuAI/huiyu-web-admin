@@ -13,3 +13,17 @@ export function getTaskStatusEnum() {
     method: 'GET',
   })
 }
+
+export function getPointOperationTypeEnum() {
+  return axios({
+    url: `/service/admin/enum/getPointOperationTypeEnum`,
+    method: 'GET',
+  })
+}
+
+export function getPointOperationSourceEnum() {
+  return axios({
+    url: `/service/admin/enum/getPointOperationSourceEnum`,
+    method: 'GET',
+  })
+}
