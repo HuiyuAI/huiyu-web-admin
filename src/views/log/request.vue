@@ -27,7 +27,7 @@
       </el-form-item>
       <el-form-item label="请求URI">
         <el-input placeholder="请输入URI" v-model="queryInfo.uri" type="text" :clearable="true"
-                  @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
+                  @keyup.native.enter="search" @clear="search" size="small" style="width: 200px">
         </el-input>
       </el-form-item>
       <el-form-item label="请求耗时大于">

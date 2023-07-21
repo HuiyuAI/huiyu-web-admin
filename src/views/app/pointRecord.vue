@@ -8,16 +8,11 @@
       </el-form-item>
       <el-form-item label="请求UUID">
         <el-input placeholder="请输入请求UUID" v-model="queryInfo.requestUuid" type="text" :clearable="true"
-                  @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
+                  @keyup.native.enter="search" @clear="search" size="small" style="width: 320px">
         </el-input>
       </el-form-item>
       <el-form-item label="用户ID">
         <el-input placeholder="请输入用户ID" v-model="queryInfo.userId" type="number" :clearable="true"
-                  @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
-        </el-input>
-      </el-form-item>
-      <el-form-item label="任务ID">
-        <el-input placeholder="请输入任务ID" v-model="queryInfo.taskId" type="number" :clearable="true"
                   @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
         </el-input>
       </el-form-item>
@@ -45,26 +40,33 @@
     </el-form>
 
     <el-table :data="recordList">
-      <el-table-column label="流水ID" prop="id"></el-table-column>
-      <el-table-column label="请求UUID" prop="requestUuid"></el-table-column>
-      <el-table-column label="用户ID" width="80">
+      <el-table-column label="流水ID" prop="id" width="180"></el-table-column>
+      <el-table-column label="请求UUID">
+        <template v-slot="scope">
+          <el-link type="primary" href="" :underline="false" @click.prevent="queryRequestUuid(scope.row.requestUuid)">{{ scope.row.requestUuid }}</el-link>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户ID">
         <template v-slot="scope">
           <el-link type="primary" href="" :underline="false" @click.prevent="toUser(scope.row.userId)">{{ scope.row.userId }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="任务ID">
-        <template v-slot="scope">
-          <el-link type="primary" href="" :underline="false" @click.prevent="toTask(scope.row.taskId)">{{ scope.row.taskId }}</el-link>
-        </template>
-      </el-table-column>
       <el-table-column label="积分" prop="num">
-        <template v-slot="scope">{{ scope.row.operationType === 'REDUCE' ? -scope.row.num : +scope.row.num }}</template>
+        <template v-slot="scope">
+          <span v-if="scope.row.operationType === 'REDUCE'" style="color: #44bd32">{{ '-' + scope.row.num }}</span>
+          <span v-else style="color: #F56C6C">{{ '+' + scope.row.num }}</span>
+        </template>
       </el-table-column>
       <el-table-column label="来源" prop="operationSource">
         <template v-slot="scope">{{ getOperationSourceDesc(scope.row.operationSource) }}</template>
       </el-table-column>
       <el-table-column label="创建时间" width="160">
         <template v-slot="scope">{{ scope.row.createTime | dateFormat }}</template>
+      </el-table-column>
+      <el-table-column label="操作" width="200">
+        <template v-slot="scope">
+          <el-button type="warning" icon="el-icon-view" size="mini" @click="toTaskByRequestUuid(scope.row.requestUuid)">查看任务</el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -106,6 +108,7 @@ export default {
     }
   },
   created() {
+    this.$route.query.requestUuid && (this.queryInfo.requestUuid = this.$route.query.requestUuid)
     this.getData()
     this.getEnum()
   },
@@ -152,6 +155,10 @@ export default {
     setDate(value) {
       this.queryInfoDate = value
     },
+    queryRequestUuid(requestUuid) {
+      this.queryInfo.requestUuid = requestUuid
+      this.search()
+    },
     toUser(userId) {
       this.$router.push({
         path: '/app/user',
@@ -160,11 +167,11 @@ export default {
         }
       })
     },
-    toTask(taskId) {
+    toTaskByRequestUuid(requestUuid) {
       this.$router.push({
         path: '/app/task',
         query: {
-          taskId
+          requestUuid
         }
       })
     },

@@ -47,9 +47,17 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column label="任务ID" prop="id"></el-table-column>
-      <el-table-column label="请求UUID" prop="requestUuid"></el-table-column>
-      <el-table-column label="用户ID" prop="userId" width="80"></el-table-column>
+      <el-table-column label="任务ID" prop="id" width="180"></el-table-column>
+      <el-table-column label="请求UUID">
+        <template v-slot="scope">
+          <el-link type="primary" href="" :underline="false" @click.prevent="queryRequestUuid(scope.row.requestUuid)">{{ scope.row.requestUuid }}</el-link>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户ID" width="80">
+        <template v-slot="scope">
+          <el-link type="primary" href="" :underline="false" @click.prevent="toUser(scope.row.userId)">{{ scope.row.userId }}</el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="任务类型">
         <template v-slot="scope">{{ getTaskTypeDesc(scope.row.type) }}</template>
       </el-table-column>
@@ -63,6 +71,11 @@
       </el-table-column>
       <el-table-column label="更新时间" width="160">
         <template v-slot="scope">{{ scope.row.updateTime | dateFormat }}</template>
+      </el-table-column>
+      <el-table-column label="操作" width="200">
+        <template v-slot="scope">
+          <el-button type="warning" icon="el-icon-view" size="mini" @click="toPointRecordByRequestUuid(scope.row.requestUuid)">积分流水</el-button>
+        </template>
       </el-table-column>
     </el-table>
 
@@ -104,6 +117,7 @@ export default {
   },
   created() {
     this.$route.query.taskId && (this.queryInfo.id = this.$route.query.taskId)
+    this.$route.query.requestUuid && (this.queryInfo.requestUuid = this.$route.query.requestUuid)
     this.$route.query.userId && (this.queryInfo.userId = this.$route.query.userId)
     this.getData()
     this.getEnum()
@@ -155,6 +169,26 @@ export default {
     },
     setDate(value) {
       this.queryInfoDate = value
+    },
+    queryRequestUuid(requestUuid) {
+      this.queryInfo.requestUuid = requestUuid
+      this.search()
+    },
+    toUser(userId) {
+      this.$router.push({
+        path: '/app/user',
+        query: {
+          userId
+        }
+      })
+    },
+    toPointRecordByRequestUuid(requestUuid) {
+      this.$router.push({
+        path: '/app/pointRecord',
+        query: {
+          requestUuid
+        }
+      })
     },
   }
 }
