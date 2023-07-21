@@ -48,7 +48,7 @@
 
     <!--分页-->
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNum"
-                   :page-sizes="[50, 100, 200, 500]" :page-size="pageSize" :total="total"
+                   :page-sizes="[10, 50, 100, 200]" :page-size="pageSize" :total="total"
                    layout="total, sizes, prev, pager, next, jumper" background>
     </el-pagination>
 
@@ -119,7 +119,7 @@ export default {
         urlPerm: null,
       },
       pageNum: 1,
-      pageSize: 50,
+      pageSize: 10,
       total: 0,
       rulesList: [],
       addDialogVisible: false,
