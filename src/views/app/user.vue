@@ -11,6 +11,9 @@
                   @keyup.native.enter="search" @clear="search" size="small" style="min-width: 150px">
         </el-input>
       </el-form-item>
+      <el-form-item label="注册时间">
+        <DateTimeRangePicker :date="queryInfoDate" :setDate="setDate"/>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" size="small" icon="el-icon-search" @click="search">搜索</el-button>
@@ -219,18 +222,23 @@
 </template>
 
 <script>
+import DateTimeRangePicker from "@/components/DateTimeRangePicker";
 import roleList from "@/common/roleList";
 import {getUserListByQuery, addUser, updateUser} from "@/api/user";
 
 export default {
   name: "User",
+  components: {DateTimeRangePicker},
   data() {
     return {
       roleList,
       queryInfo: {
         userId: null,
         role: null,
+        createTimeStart: null,
+        createTimeEnd: null,
       },
+      queryInfoDate: [],
       pageNum: 1,
       pageSize: 10,
       total: 0,
@@ -297,6 +305,16 @@ export default {
     handleCurrentChange(newPage) {
       this.pageNum = newPage
       this.getData()
+    },
+    setDate(value) {
+      this.queryInfoDate = value
+      if (this.queryInfoDate) {
+        this.queryInfo.createTimeStart = this.queryInfoDate[0]
+        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
+      } else {
+        this.queryInfo.createTimeStart = null
+        this.queryInfo.createTimeEnd = null
+      }
     },
     showEditDialog(row) {
       this.editForm.userId = row.userId
