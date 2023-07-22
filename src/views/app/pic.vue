@@ -118,7 +118,7 @@
       </el-table-column>
       <el-table-column label="图片" width="150">
         <template v-slot="scope">
-          <el-image :src="scope.row.path" fit="contain"></el-image>
+          <el-image :src="scope.row.status === 'GENERATED' ? scope.row.path : ''" fit="contain"></el-image>
         </template>
       </el-table-column>
       <el-table-column label="图片UUID" prop="uuid"></el-table-column>
