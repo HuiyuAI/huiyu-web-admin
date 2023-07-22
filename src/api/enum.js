@@ -27,3 +27,17 @@ export function getPointOperationSourceEnum() {
     method: 'GET',
   })
 }
+
+export function getPicStatusEnum() {
+  return axios({
+    url: `/service/admin/enum/getPicStatusEnum`,
+    method: 'GET',
+  })
+}
+
+export function getImageQualityEnum() {
+  return axios({
+    url: `/service/admin/enum/getImageQualityEnum`,
+    method: 'GET',
+  })
+}
