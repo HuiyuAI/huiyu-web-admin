@@ -121,10 +121,6 @@ export default {
   },
   methods: {
     getData() {
-      if (this.queryInfoDate && this.queryInfoDate.length === 2) {
-        this.queryInfo.createTimeStart = this.queryInfoDate[0]
-        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
-      }
       getPointRecordListByQuery(this.queryInfo, this.pageNum, this.pageSize).then(res => {
         this.recordList = res.data.records
         this.total = res.data.total
@@ -154,6 +150,13 @@ export default {
     },
     setDate(value) {
       this.queryInfoDate = value
+      if (this.queryInfoDate) {
+        this.queryInfo.createTimeStart = this.queryInfoDate[0]
+        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
+      } else {
+        this.queryInfo.createTimeStart = null
+        this.queryInfo.createTimeEnd = null
+      }
     },
     queryRequestUuid(requestUuid) {
       this.queryInfo.requestUuid = requestUuid

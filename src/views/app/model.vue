@@ -273,6 +273,7 @@ export default {
     }
   },
   created() {
+    this.$route.query.modelId && (this.queryInfo.id = this.$route.query.modelId)
     this.getData()
   },
   methods: {

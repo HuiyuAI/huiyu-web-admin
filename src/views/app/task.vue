@@ -136,10 +136,6 @@ export default {
   },
   methods: {
     getData() {
-      if (this.queryInfoDate && this.queryInfoDate.length === 2) {
-        this.queryInfo.createTimeStart = this.queryInfoDate[0]
-        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
-      }
       getTaskListByQuery(this.queryInfo, this.pageNum, this.pageSize).then(res => {
         this.taskList = res.data.records
         this.total = res.data.total
@@ -169,6 +165,13 @@ export default {
     },
     setDate(value) {
       this.queryInfoDate = value
+      if (this.queryInfoDate) {
+        this.queryInfo.createTimeStart = this.queryInfoDate[0]
+        this.queryInfo.createTimeEnd = this.queryInfoDate[1]
+      } else {
+        this.queryInfo.createTimeStart = null
+        this.queryInfo.createTimeEnd = null
+      }
     },
     queryRequestUuid(requestUuid) {
       this.queryInfo.requestUuid = requestUuid
@@ -204,7 +207,7 @@ export default {
     margin-bottom: 0;
   }
 
-  .el-table .table-expand .el-form-item {
+  .el-table .table-expand .el-form-item:nth-of-type(1) {
     label {
       line-height: 1.5;
     }
@@ -216,6 +219,10 @@ export default {
     span {
       white-space: pre-wrap;
     }
+  }
+
+  .el-table__expanded-cell[class*=cell] {
+    padding: 20px 50px;
   }
 }
 </style>
