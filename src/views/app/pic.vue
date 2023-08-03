@@ -68,6 +68,12 @@
             <el-form-item label="反向描述词">
               <span>{{ props.row.negativePrompt }}</span>
             </el-form-item>
+            <el-form-item label="正向描述词英文翻译">
+              <span>{{ props.row.translatedPrompt }}</span>
+            </el-form-item>
+            <el-form-item label="反向描述词英文翻译">
+              <span>{{ props.row.translatedNegativePrompt }}</span>
+            </el-form-item>
             <el-form-item label="种子">
               <span>{{ props.row.seed }}</span>
             </el-form-item>
