@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="request-container">
     <el-form inline @submit.native.prevent>
       <el-form-item label="请求ID">
         <el-input placeholder="请输入请求ID" v-model="queryInfo.id" type="number" :clearable="true"
@@ -147,12 +147,18 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.el-button + span {
-  margin-left: 10px;
-}
+<style lang="scss">
+.request-container {
+  .el-button + span {
+    margin-left: 10px;
+  }
 
-.el-form--inline .el-form-item {
-  margin-bottom: 0;
+  .el-form--inline .el-form-item {
+    margin-bottom: 0;
+  }
+
+  .el-table__expanded-cell[class*=cell] {
+    padding: 20px 50px;
+  }
 }
 </style>
