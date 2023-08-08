@@ -124,7 +124,7 @@
       </el-table-column>
       <el-table-column label="图片" width="150">
         <template v-slot="scope">
-          <el-image :src="scope.row.status === 'GENERATED' ? scope.row.path : ''" fit="contain"></el-image>
+          <el-image :src="['GENERATED','RISKY'].includes(scope.row.status) ? scope.row.path : ''" fit="contain"></el-image>
         </template>
       </el-table-column>
       <el-table-column label="图片UUID" prop="uuid"></el-table-column>
@@ -153,6 +153,9 @@
       </el-table-column>
       <el-table-column label="任务状态" width="80">
         <template v-slot="scope">{{ getPicStatusDesc(scope.row.status) }}</template>
+        <template v-slot="scope">
+          <span :style="{color: scope.row.status === 'RISKY' ? '#F56C6C' : ''}">{{ getPicStatusDesc(scope.row.status) }}</span>
+        </template>
       </el-table-column>
       <el-table-column label="质量" width="100">
         <template v-slot="scope">{{ getImageQualityDesc(scope.row.quality) }}</template>
