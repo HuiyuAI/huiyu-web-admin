@@ -53,8 +53,8 @@
       </el-table-column>
       <el-table-column label="积分" prop="num">
         <template v-slot="scope">
-          <span v-if="scope.row.operationType === 'REDUCE'" style="color: #44bd32">{{ '-' + scope.row.num }}</span>
-          <span v-else style="color: #F56C6C">{{ '+' + scope.row.num }}</span>
+          <el-tag v-if="scope.row.operationType === 'REDUCE'" size="medium" type="success">{{ '-' + scope.row.num }}</el-tag>
+          <el-tag v-else size="medium" type="danger">{{ '+' + scope.row.num }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="来源" prop="operationSource">

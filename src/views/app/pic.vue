@@ -152,9 +152,8 @@
         <template v-slot="scope">{{ getTaskTypeDesc(scope.row.type) }}</template>
       </el-table-column>
       <el-table-column label="任务状态" width="80">
-        <template v-slot="scope">{{ getPicStatusDesc(scope.row.status) }}</template>
         <template v-slot="scope">
-          <span :style="{color: scope.row.status === 'RISKY' ? '#F56C6C' : ''}">{{ getPicStatusDesc(scope.row.status) }}</span>
+          <el-tag v-if="" size="medium" effect="dark" :type="getPicStatusColor(scope.row.status)">{{ getPicStatusDesc(scope.row.status) }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="质量" width="100">
@@ -237,6 +236,22 @@ export default {
     getImageQualityDesc() {
       return (quality) => {
         return this.imageQualityEnumList.find(item => item.key === quality).desc
+      }
+    },
+    getPicStatusColor() {
+      return (status) => {
+        switch (status) {
+          case 'GENERATING':
+            return 'success'
+          case 'GENERATED':
+            return ''
+          case 'DISCARD':
+            return 'warning'
+          case 'RISKY':
+            return 'danger'
+          default:
+            return 'danger'
+        }
       }
     },
   },

@@ -62,7 +62,9 @@
         <template v-slot="scope">{{ getTaskTypeDesc(scope.row.type) }}</template>
       </el-table-column>
       <el-table-column label="任务状态">
-        <template v-slot="scope">{{ getTaskStatusDesc(scope.row.status) }}</template>
+        <template v-slot="scope">
+          <el-tag v-if="" size="medium" effect="dark" :type="getTaskStatusColor(scope.row.status)">{{ getTaskStatusDesc(scope.row.status) }}</el-tag>
+        </template>
       </el-table-column>
       <el-table-column label="消耗积分" prop="point" width="80"></el-table-column>
       <el-table-column label="执行源" prop="execSource" width="100"></el-table-column>
@@ -131,6 +133,22 @@ export default {
     getTaskStatusDesc() {
       return (status) => {
         return this.taskStatusEnumList.find(item => item.key === status).desc
+      }
+    },
+    getTaskStatusColor() {
+      return (status) => {
+        switch (status) {
+          case 'UN_EXECUTED':
+            return 'info'
+          case 'EXECUTED':
+            return ''
+          case 'IN_QUEUE':
+            return 'success'
+          case 'DISCARD':
+            return 'danger'
+          default:
+            return 'danger'
+        }
       }
     },
   },
