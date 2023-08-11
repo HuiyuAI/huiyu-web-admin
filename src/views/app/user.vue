@@ -328,6 +328,7 @@ export default {
       this.editForm.point = row.point
       this.editForm.level = row.level
       this.editForm.enabled = row.enabled
+      this.editForm.updateTime = row.updateTime
       this.editDialogVisible = true
     },
     submitEdit() {
