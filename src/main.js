@@ -12,6 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/styles/index.scss'
 //icon
 import '@/icons'
+import '@/assets/icon/iconfont.css'
 //moment
 import './util/dateTimeFormatUtils.js'
 

@@ -108,6 +108,12 @@ const routes = [
         component: () => import('@/views/system/permission'),
         meta: {title: '权限管理', icon: 'el-icon-s-promotion'}
       },
+      {
+        path: 'mirai',
+        name: 'Mirai',
+        component: () => import('@/views/system/mirai'),
+        meta: {title: 'QQ机器人', icon: 'qq'}
+      },
     ]
   },
 
