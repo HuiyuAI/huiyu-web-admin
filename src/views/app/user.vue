@@ -40,6 +40,7 @@
           <span v-else>未知</span>
         </template>
       </el-table-column>
+      <el-table-column label="每日积分" prop="dailyPoint" width="80"></el-table-column>
       <el-table-column label="积分" prop="point" width="80"></el-table-column>
       <el-table-column label="等级" prop="level" width="50"></el-table-column>
       <el-table-column label="图片数" width="70">
