@@ -28,6 +28,13 @@ export function getPointOperationSourceEnum() {
   })
 }
 
+export function getPointTypeEnum() {
+  return axios({
+    url: `/service/admin/enum/getPointTypeEnum`,
+    method: 'GET',
+  })
+}
+
 export function getPicStatusEnum() {
   return axios({
     url: `/service/admin/enum/getPicStatusEnum`,

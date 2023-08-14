@@ -17,6 +17,12 @@
         </el-input>
       </el-form-item>
 
+      <el-form-item label="积分类型">
+        <el-select placeholder="请选择积分类型" v-model="queryInfo.pointType" :clearable="true"
+                   @change="search" size="small" style="width: 150px">
+          <el-option :label="item.desc" :value="item.key" v-for="(item,index) in pointTypeEnumList" :key="index"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="类型">
         <el-select placeholder="请选择类型" v-model="queryInfo.operationType" :clearable="true"
                    @change="search" size="small" style="width: 150px">
@@ -51,13 +57,16 @@
           <el-link type="primary" href="" :underline="false" @click.prevent="toUser(scope.row.userId)">{{ scope.row.userId }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="积分" prop="num">
+      <el-table-column label="积分">
         <template v-slot="scope">
           <el-tag v-if="scope.row.operationType === 'REDUCE'" size="medium" type="success">{{ '-' + scope.row.num }}</el-tag>
           <el-tag v-else size="medium" type="danger">{{ '+' + scope.row.num }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="来源" prop="operationSource">
+      <el-table-column label="积分类型">
+        <template v-slot="scope">{{ getPointTypeDesc(scope.row.pointType) }}</template>
+      </el-table-column>
+      <el-table-column label="来源">
         <template v-slot="scope">{{ getOperationSourceDesc(scope.row.operationSource) }}</template>
       </el-table-column>
       <el-table-column label="创建时间" width="160">
@@ -81,7 +90,7 @@
 <script>
 import DateTimeRangePicker from "@/components/DateTimeRangePicker";
 import {getPointRecordListByQuery} from "@/api/pointRecord";
-import {getPointOperationTypeEnum, getPointOperationSourceEnum} from "@/api/enum";
+import {getPointOperationTypeEnum, getPointOperationSourceEnum, getPointTypeEnum} from "@/api/enum";
 
 export default {
   name: "PointRecord",
@@ -95,6 +104,7 @@ export default {
         taskId: null,
         operationType: null,
         operationSource: null,
+        pointType: null,
         createTimeStart: null,
         createTimeEnd: null,
       },
@@ -105,6 +115,7 @@ export default {
       recordList: [],
       pointOperationTypeEnumList: [],
       pointOperationSourceEnumList: [],
+      pointTypeEnumList: [],
     }
   },
   created() {
@@ -117,7 +128,12 @@ export default {
       return (operationSource) => {
         return this.pointOperationSourceEnumList.find(item => item.key === operationSource).desc
       }
-    }
+    },
+    getPointTypeDesc() {
+      return (pointType) => {
+        return this.pointTypeEnumList.find(item => item.key === pointType).desc
+      }
+    },
   },
   methods: {
     getData() {
@@ -132,6 +148,9 @@ export default {
       })
       getPointOperationSourceEnum().then(res => {
         this.pointOperationSourceEnumList = res.data
+      })
+      getPointTypeEnum().then(res => {
+        this.pointTypeEnumList = res.data
       })
     },
     search() {
