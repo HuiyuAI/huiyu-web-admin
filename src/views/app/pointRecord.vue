@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="point-record-container">
     <el-form inline @submit.native.prevent>
       <el-form-item label="流水ID">
         <el-input placeholder="请输入流水ID" v-model="queryInfo.id" type="number" :clearable="true"
@@ -46,6 +46,18 @@
     </el-form>
 
     <el-table :data="recordList">
+      <el-table-column type="expand">
+        <template v-slot="props">
+          <el-form label-position="left" class="table-expand">
+            <el-form-item label="已返还每日积分">
+              <span>{{ props.row.returnDailyPoint }}</span>
+            </el-form-item>
+            <el-form-item label="已返还永久积分">
+              <span>{{ props.row.returnPoint }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column label="流水ID" prop="id" width="180"></el-table-column>
       <el-table-column label="请求UUID">
         <template v-slot="scope">
@@ -57,14 +69,19 @@
           <el-link type="primary" href="" :underline="false" @click.prevent="toUser(scope.row.userId)">{{ scope.row.userId }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="积分">
+      <el-table-column label="每日积分">
         <template v-slot="scope">
-          <el-tag v-if="scope.row.operationType === 'REDUCE'" size="medium" type="success">{{ '-' + scope.row.num }}</el-tag>
-          <el-tag v-else size="medium" type="danger">{{ '+' + scope.row.num }}</el-tag>
+          <el-tag v-if="scope.row.dailyPoint === 0" size="medium" type="info">0</el-tag>
+          <el-tag v-else-if="scope.row.operationType === 'REDUCE'" size="medium" type="success">{{ '-' + scope.row.dailyPoint }}</el-tag>
+          <el-tag v-else size="medium" type="danger">{{ '+' + scope.row.dailyPoint }}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="积分类型">
-        <template v-slot="scope">{{ getPointTypeDesc(scope.row.pointType) }}</template>
+      <el-table-column label="永久积分">
+        <template v-slot="scope">
+          <el-tag v-if="scope.row.point === 0" size="medium" type="info">0</el-tag>
+          <el-tag v-else-if="scope.row.operationType === 'REDUCE'" size="medium" type="success">{{ '-' + scope.row.point }}</el-tag>
+          <el-tag v-else size="medium" type="danger">{{ '+' + scope.row.point }}</el-tag>
+        </template>
       </el-table-column>
       <el-table-column label="来源">
         <template v-slot="scope">{{ getOperationSourceDesc(scope.row.operationSource) }}</template>
@@ -201,12 +218,18 @@ export default {
 }
 </script>
 
-<style scoped>
-.el-button + span {
-  margin-left: 10px;
-}
+<style lang="scss">
+.point-record-container {
+  .el-button + span {
+    margin-left: 10px;
+  }
 
-.el-form--inline .el-form-item {
-  margin-bottom: 0;
+  .el-form--inline .el-form-item {
+    margin-bottom: 0;
+  }
+
+  .el-table__expanded-cell[class*=cell] {
+    padding: 20px 50px;
+  }
 }
 </style>
