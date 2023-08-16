@@ -153,7 +153,12 @@
       </el-table-column>
       <el-table-column label="任务状态" width="80">
         <template v-slot="scope">
-          <el-tag v-if="" size="medium" effect="dark" :type="getPicStatusColor(scope.row.status)">{{ getPicStatusDesc(scope.row.status) }}</el-tag>
+          <el-tag size="medium" effect="dark" :type="getPicStatusColor(scope.row.status)">{{ getPicStatusDesc(scope.row.status) }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户删除" width="80">
+        <template v-slot="scope">
+          <el-tag size="medium" effect="dark" :type="scope.row.isUserDelete ? 'danger' : ''">{{ scope.row.isUserDelete ? '已删除' : '正常'}}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="质量" width="100">

@@ -63,7 +63,7 @@
       </el-table-column>
       <el-table-column label="任务状态">
         <template v-slot="scope">
-          <el-tag v-if="" size="medium" effect="dark" :type="getTaskStatusColor(scope.row.status)">{{ getTaskStatusDesc(scope.row.status) }}</el-tag>
+          <el-tag size="medium" effect="dark" :type="getTaskStatusColor(scope.row.status)">{{ getTaskStatusDesc(scope.row.status) }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="消耗积分" prop="point" width="80"></el-table-column>
