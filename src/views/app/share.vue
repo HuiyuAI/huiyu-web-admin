@@ -1,11 +1,6 @@
 <template>
-  <div class="pic-container">
+  <div class="share-container">
     <el-form inline @submit.native.prevent>
-      <el-form-item label="图片ID">
-        <el-input placeholder="请输入图片ID" v-model="queryInfo.id" type="number" :clearable="true"
-                  @keyup.native.enter="search" @clear="search" size="small" style="min-width: 220px">
-        </el-input>
-      </el-form-item>
       <el-form-item label="图片UUID">
         <el-input placeholder="请输入图片UUID" v-model="queryInfo.uuid" type="text" :clearable="true"
                   @keyup.native.enter="search" @clear="search" size="small" style="min-width: 320px">
@@ -20,12 +15,6 @@
         <el-input placeholder="请输入模型ID" v-model="queryInfo.modelId" type="number" :clearable="true"
                   @keyup.native.enter="search" @clear="search" size="small" style="width: 150px">
         </el-input>
-      </el-form-item>
-      <el-form-item label="任务类型">
-        <el-select placeholder="请选择任务类型" v-model="queryInfo.type" :clearable="true"
-                   @change="search" size="small" style="width: 150px">
-          <el-option :label="item.desc" :value="item.key" v-for="(item,index) in taskTypeEnumList" :key="index"></el-option>
-        </el-select>
       </el-form-item>
       <el-form-item label="审核状态">
         <el-select placeholder="请选择任务状态" v-model="queryInfo.status" :clearable="true"
@@ -58,6 +47,12 @@
             <el-form-item label="反向描述词英文翻译">
               <span>{{ props.row.pic.translatedNegativePrompt }}</span>
             </el-form-item>
+            <el-form-item label="宽">
+              <span>{{ props.row.pic.width }}</span>
+            </el-form-item>
+            <el-form-item label="高">
+              <span>{{ props.row.pic.height }}</span>
+            </el-form-item>
           </el-form>
         </template>
       </el-table-column>
@@ -66,36 +61,47 @@
           <el-image :src="scope.row.pic.path" fit="contain"></el-image>
         </template>
       </el-table-column>
-      <el-table-column label="图片UUID" prop="picShare.uuid"></el-table-column>
-      <el-table-column label="用户ID" width="80">
+      <el-table-column label="图片UUID">
         <template v-slot="scope">
-          <el-link type="primary" href="" :underline="false" @click.prevent="toUser(scope.row.picShare.userId)">{{ scope.row.picShare.userId }}</el-link>
+          <el-link type="primary" href="" :underline="false" @click.prevent="toPic(scope.row.picShare.picId)">{{ scope.row.picShare.uuid }}</el-link>
         </template>
       </el-table-column>
-      <el-table-column label="模型ID" width="80">
+      <el-table-column label="用户头像" width="80">
         <template v-slot="scope">
-          <el-link type="primary" href="" :underline="false" @click.prevent="toModel(scope.row.modelId)">{{ scope.row.modelId }}</el-link>
+          <el-avatar shape="square" :size="50" fit="contain" :src="scope.row.user.avatar"></el-avatar>
+        </template>
+      </el-table-column>
+      <el-table-column label="用户昵称" width="80">
+        <template v-slot="scope">
+          <el-link type="primary" href="" :underline="false" @click.prevent="queryUserId(scope.row.picShare.userId)">{{ scope.row.user.nickname }}</el-link>
+        </template>
+      </el-table-column>
+      <el-table-column label="标题" prop="picShare.title"></el-table-column>
+      <el-table-column label="模型名称" width="80">
+        <template v-slot="scope">
+          <el-link type="primary" href="" :underline="false" @click.prevent="queryModelId(scope.row.model.id)">{{ scope.row.model.name }}</el-link>
         </template>
       </el-table-column>
       <el-table-column label="任务类型" width="120">
         <template v-slot="scope">{{ getTaskTypeDesc(scope.row.pic.type) }}</template>
       </el-table-column>
-      <el-table-column label="任务状态" width="120">
-        <template v-slot="scope">
-          <el-tag size="medium" effect="dark" :type="getPicShareStatusColor(scope.row.picShare.status)">{{ getPicShareStatusDesc(scope.row.picShare.status) }}</el-tag>
-        </template>
-      </el-table-column>
       <el-table-column label="质量" width="100">
         <template v-slot="scope">{{ getImageQualityDesc(scope.row.pic.quality) }}</template>
       </el-table-column>
       <el-table-column label="比例" prop="pic.ratio" width="60"></el-table-column>
-      <el-table-column label="宽" prop="pic.width" width="60"></el-table-column>
-      <el-table-column label="高" prop="pic.height" width="60"></el-table-column>
-      <el-table-column label="标题" prop="picShare.title"></el-table-column>
-      <el-table-column label="点击量" prop="picShare.hits"></el-table-column>
-      <el-table-column label="点赞量" prop="picShare.like_count"></el-table-column>
-      <el-table-column label="画同款次数" prop="picShare.draw_count"></el-table-column>
-
+      <el-table-column label="用户删除" width="80">
+        <template v-slot="scope">
+          <el-tag size="medium" effect="dark" :type="scope.row.pic.isUserDelete ? 'danger' : ''">{{ scope.row.pic.isUserDelete ? '已删除' : '正常' }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="点击量" prop="picShare.hits" width="80"></el-table-column>
+      <el-table-column label="点赞量" prop="picShare.likeCount" width="80"></el-table-column>
+      <el-table-column label="画同款" prop="picShare.drawCount" width="80"></el-table-column>
+      <el-table-column label="审核状态" width="120">
+        <template v-slot="scope">
+          <el-tag size="medium" effect="dark" :type="getPicShareStatusColor(scope.row.picShare.status)">{{ getPicShareStatusDesc(scope.row.picShare.status) }}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="图片创建" width="160">
         <template v-slot="scope">{{ scope.row.pic.createTime | dateFormat }}</template>
       </el-table-column>
@@ -134,13 +140,9 @@ export default {
   data() {
     return {
       queryInfo: {
-        id: null,
         uuid: null,
-        requestUuid: null,
         userId: null,
-        taskId: null,
         modelId: null,
-        type: null,
         status: null,
         createTimeStart: null,
         createTimeEnd: null,
@@ -233,52 +235,28 @@ export default {
         this.queryInfo.createTimeEnd = null
       }
     },
-    queryRequestUuid(requestUuid) {
-      this.queryInfo.requestUuid = requestUuid
+    toPic(picId) {
+      this.$router.push({
+        path: '/app/pic',
+        query: {
+          picId
+        }
+      })
+    },
+    queryUserId(userId) {
+      this.queryInfo.userId = userId
       this.search()
     },
-    queryId(id) {
-      this.queryInfo.id = id
+    queryModelId(modelId) {
+      this.queryInfo.modelId = modelId
       this.search()
-    },
-    toUser(userId) {
-      this.$router.push({
-        path: '/app/user',
-        query: {
-          userId
-        }
-      })
-    },
-    toTask(taskId) {
-      this.$router.push({
-        path: '/app/task',
-        query: {
-          taskId
-        }
-      })
-    },
-    toModel(modelId) {
-      this.$router.push({
-        path: '/app/model',
-        query: {
-          modelId
-        }
-      })
-    },
-    toPointRecordByRequestUuid(requestUuid) {
-      this.$router.push({
-        path: '/app/pointRecord',
-        query: {
-          requestUuid
-        }
-      })
     },
   }
 }
 </script>
 
 <style lang="scss">
-.pic-container {
+.share-container {
   .el-button + span {
     margin-left: 10px;
   }

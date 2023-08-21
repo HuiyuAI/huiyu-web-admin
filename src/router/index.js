@@ -70,7 +70,7 @@ const routes = [
         path: 'share',
         name: 'Share',
         component: () => import('@/views/app/share'),
-        meta: {title: '投稿审核', icon: 'point'}
+        meta: {title: '投稿审核', icon: 'audit'}
       },
     ]
   },

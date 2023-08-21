@@ -158,7 +158,7 @@
       </el-table-column>
       <el-table-column label="用户删除" width="80">
         <template v-slot="scope">
-          <el-tag size="medium" effect="dark" :type="scope.row.isUserDelete ? 'danger' : ''">{{ scope.row.isUserDelete ? '已删除' : '正常'}}</el-tag>
+          <el-tag size="medium" effect="dark" :type="scope.row.isUserDelete ? 'danger' : ''">{{ scope.row.isUserDelete ? '已删除' : '正常' }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="质量" width="100">
@@ -221,6 +221,7 @@ export default {
     }
   },
   created() {
+    this.$route.query.picId && (this.queryInfo.id = this.$route.query.picId)
     this.$route.query.taskId && (this.queryInfo.id = this.$route.query.taskId)
     this.$route.query.requestUuid && (this.queryInfo.requestUuid = this.$route.query.requestUuid)
     this.$route.query.userId && (this.queryInfo.userId = this.$route.query.userId)
