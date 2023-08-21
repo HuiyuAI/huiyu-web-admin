@@ -66,6 +66,12 @@ const routes = [
         component: () => import('@/views/app/pointRecord'),
         meta: {title: '积分流水', icon: 'point'}
       },
+      {
+        path: 'share',
+        name: 'Share',
+        component: () => import('@/views/app/share'),
+        meta: {title: '投稿审核', icon: 'point'}
+      },
     ]
   },
   {

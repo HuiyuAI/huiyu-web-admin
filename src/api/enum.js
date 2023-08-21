@@ -48,3 +48,10 @@ export function getImageQualityEnum() {
     method: 'GET',
   })
 }
+
+export function getPicShareStatusEnum() {
+  return axios({
+    url: `/service/admin/enum/getPicShareStatusEnum`,
+    method: 'GET',
+  })
+}
