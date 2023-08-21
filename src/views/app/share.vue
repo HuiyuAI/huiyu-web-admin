@@ -114,9 +114,15 @@
       <el-table-column label="审核时间" width="160">
         <template v-slot="scope">{{ scope.row.picShare.auditTime | dateFormat }}</template>
       </el-table-column>
-      <el-table-column label="操作" width="120">
+      <el-table-column label="操作" width="200">
         <template v-slot="scope">
-          <el-button type="warning" icon="el-icon-view" size="mini" @click="toPointRecordByRequestUuid(scope.row.requestUuid)">积分流水</el-button>
+          <div v-if="scope.row.picShare.status === 'AUDITING'">
+            <el-button type="primary" icon="el-icon-check" size="mini" @click="audit(scope.row.picShare.picId, 'PUBLIC')">通过</el-button>
+            <el-button type="danger" icon="el-icon-close" size="mini" @click="audit(scope.row.picShare.picId, 'REJECT')">拒绝</el-button>
+          </div>
+          <div v-if="['PUBLIC', 'REJECT'].includes(scope.row.picShare.status)">
+            <el-button type="warning" icon="el-icon-refresh-left" size="mini" @click="reAudit(scope.row.picShare.picId)">重新审核</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -132,7 +138,7 @@
 <script>
 import DateTimeRangePicker from "@/components/DateTimeRangePicker";
 import {getTaskTypeEnum, getPicShareStatusEnum, getImageQualityEnum} from "@/api/enum";
-import {getPicShareListByQuery} from "@/api/share";
+import {getPicShareListByQuery, audit, reAudit} from "@/api/share";
 
 export default {
   name: "Pic",
@@ -143,7 +149,7 @@ export default {
         uuid: null,
         userId: null,
         modelId: null,
-        status: null,
+        status: 'AUDITING',
         createTimeStart: null,
         createTimeEnd: null,
       },
@@ -250,6 +256,18 @@ export default {
     queryModelId(modelId) {
       this.queryInfo.modelId = modelId
       this.search()
+    },
+    audit(picId, status) {
+      audit([picId], status).then(res => {
+        this.msgSuccess('审核成功')
+        this.getData()
+      })
+    },
+    reAudit(picId) {
+      reAudit([picId]).then(res => {
+        this.msgSuccess('重新审核成功')
+        this.getData()
+      })
     },
   }
 }

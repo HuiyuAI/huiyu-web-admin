@@ -9,3 +9,22 @@ export function getPicShareListByQuery(query, pageNum, pageSize) {
     }
   })
 }
+
+export function audit(picIdList, status) {
+  return axios({
+    url: `/service/admin/picShare/audit`,
+    method: 'POST',
+    data: {
+      picIdList,
+      status
+    }
+  })
+}
+
+export function reAudit(picIdList) {
+  return axios({
+    url: `/service/admin/picShare/reAudit`,
+    method: 'POST',
+    data: picIdList
+  })
+}
