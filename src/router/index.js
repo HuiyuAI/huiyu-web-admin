@@ -122,6 +122,27 @@ const routes = [
       },
     ]
   },
+  {
+    path: '/pictureHosting',
+    name: 'PictureHosting',
+    redirect: '/pictureHosting/setting',
+    component: Layout,
+    meta: {title: '图床管理', icon: 'el-icon-picture'},
+    children: [
+      {
+        path: 'setting',
+        name: 'Setting',
+        component: () => import('@/views/pictureHosting/setting'),
+        meta: {title: '配置', icon: 'el-icon-setting'}
+      },
+      {
+        path: 'upyun',
+        name: 'Upyun',
+        component: () => import('@/views/pictureHosting/upyun'),
+        meta: {title: '又拍云', icon: 'el-icon-folder-opened'}
+      },
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   {path: '*', redirect: '/404', hidden: true}

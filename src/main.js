@@ -15,8 +15,14 @@ import '@/icons'
 import '@/assets/icon/iconfont.css'
 //moment
 import './util/dateTimeFormatUtils.js'
+// v-viewer
+import 'viewerjs/dist/viewer.css'
+import Viewer from 'v-viewer'
+// directive
+import './util/directive'
 
 Vue.use(ElementUI)
+Vue.use(Viewer)
 
 Vue.prototype.msgSuccess = function (msg) {
   this.$message.success(msg)

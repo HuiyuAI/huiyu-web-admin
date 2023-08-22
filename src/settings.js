@@ -33,5 +33,5 @@ module.exports = {
    * @type {Array}
    * @description 默认展开的父级菜单
    */
-  defaultOpeneds: ['/app', '/log', '/system']
+  defaultOpeneds: ['/app', '/log', '/system', '/pictureHosting'],
 }
