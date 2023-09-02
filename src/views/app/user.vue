@@ -48,6 +48,11 @@
           <el-link type="primary" @click="toPic(scope.row.userId)">{{ scope.row.picCount }}</el-link>
         </template>
       </el-table-column>
+      <el-table-column label="投稿数" width="70">
+        <template v-slot="scope">
+          <el-link type="primary" @click="toShare(scope.row.userId)">{{ scope.row.picShareCount }}</el-link>
+        </template>
+      </el-table-column>
       <el-table-column label="角色" prop="role" width="90">
         <template v-slot="scope">
           {{ roleList.find(item => item.code === scope.row.role).label }}
@@ -363,6 +368,15 @@ export default {
         path: '/app/pic',
         query: {
           userId
+        }
+      })
+    },
+    toShare(userId) {
+      this.$router.push({
+        path: '/app/share',
+        query: {
+          userId,
+          status: 'null'
         }
       })
     },

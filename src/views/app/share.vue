@@ -165,6 +165,13 @@ export default {
   },
   created() {
     this.$route.query.userId && (this.queryInfo.userId = this.$route.query.userId)
+    if (this.$route.query.status) {
+      if (this.$route.query.status === 'null') {
+        this.queryInfo.status = null
+      } else {
+        this.queryInfo.status = this.$route.query.status
+      }
+    }
     this.getData()
     this.getEnum()
   },
