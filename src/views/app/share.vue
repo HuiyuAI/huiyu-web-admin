@@ -112,7 +112,10 @@
         <template v-slot="scope">{{ scope.row.picShare.createTime | dateFormat }}</template>
       </el-table-column>
       <el-table-column label="审核时间" width="160">
-        <template v-slot="scope">{{ scope.row.picShare.auditTime | dateFormat }}</template>
+        <template v-slot="scope">
+          <span v-if="scope.row.picShare.auditTime">{{ scope.row.picShare.auditTime | dateFormat }}</span>
+          <span v-else></span>
+        </template>
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template v-slot="scope">
