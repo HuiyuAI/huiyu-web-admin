@@ -33,7 +33,7 @@
           <el-image :src="scope.row.coverUrl" fit="scontain"></el-image>
         </template>
       </el-table-column>
-      <el-table-column label="名称" prop="name" width="80"></el-table-column>
+      <el-table-column label="名称" prop="name" width="100"></el-table-column>
       <el-table-column label="分类" prop="category" width="80"></el-table-column>
       <el-table-column label="描述" prop="description" show-overflow-tooltip></el-table-column>
       <el-table-column label="编码" prop="code" show-overflow-tooltip></el-table-column>
