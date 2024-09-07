@@ -9,13 +9,13 @@ module.exports = {
    * @type {string}
    * @description base server url
    */
-  baseServerUrl: 'https://api.naccl.top/huiyu',
+  baseServerUrl: 'http://localhost:8000',
 
   /**
    * @type {string}
    * @description logo URL
    */
-  logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png',
+  logo: 'icon.png',
 
   /**
    * @type {boolean} true | false

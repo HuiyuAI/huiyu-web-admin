@@ -39,8 +39,8 @@ export default {
   name: "Mirai",
   data() {
     return {
-      qq: '2106308917',
-      groupId: '369116826',
+      qq: '',
+      groupId: '',
       loginQQ: '',
       loginGroupId: '',
       isLogin: false,
