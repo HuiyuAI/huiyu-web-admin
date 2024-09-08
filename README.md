@@ -52,7 +52,7 @@ Web管理端：
 
 QQ机器人功能预览：
 
-<img src="./docs/qqbot/1.jpg" style="width: 60%">
+<img src="./docs/qqbot/1.jpg" style="width: 70%">
 
 
 
